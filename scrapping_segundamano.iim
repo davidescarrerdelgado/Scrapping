@@ -1,0 +1,7 @@
+﻿VERSION BUILD=9002379
+TAB T=1
+TAB CLOSEALLOTHERS
+SET !TIMEOUT 2
+URL GOTO=http://www.segundamano.es/pisos-y-casas-baleares-particulares/?
+TAG POS=1 TYPE=a ATTR=class:dateLink EXTRACT=HREF
+TAG POS=2 TYPE=a ATTR=class:dateLink EXTRACT=HREF

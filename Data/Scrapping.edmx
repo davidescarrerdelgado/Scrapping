@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ScrappingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caracteristica">
+          <Key>
+            <PropertyRef Name="id_caracteristica" />
+          </Key>
+          <Property Name="id_caracteristica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="caracteristica" Type="nvarchar(max)" />
+          <Property Name="id_tipo" Type="int" />
+        </EntityType>
+        <EntityType Name="Caracteristica_Tipo">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Enlace">
+          <Key>
+            <PropertyRef Name="id_enlace" />
+          </Key>
+          <Property Name="id_enlace" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="web" Type="nvarchar(max)" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="url" Type="nvarchar(max)" />
+          <Property Name="sysdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo">
+          <Key>
+            <PropertyRef Name="id_enlace_hijo" />
+          </Key>
+          <Property Name="id_enlace_hijo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_enlace" Type="int" />
+          <Property Name="id_property" Type="varchar(max)" />
+          <Property Name="url" Type="varchar(max)" />
+          <Property Name="publish_date" Type="datetime" />
+          <Property Name="catched_date" Type="datetime" />
+          <Property Name="scrapped_date" Type="datetime" />
+          <Property Name="inactive_date" Type="datetime" />
+          <Property Name="error_handler" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Caracteristica">
+          <Key>
+            <PropertyRef Name="id_detalle_caracteristica" />
+          </Key>
+          <Property Name="id_detalle_caracteristica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_enlace_hijo" Type="int" />
+          <Property Name="id_caracteristica" Type="int" />
+          <Property Name="caracteristica_validate" Type="nvarchar(max)" />
+          <Property Name="tipo_validate" Type="int" />
+          <Property Name="value" Type="nvarchar(max)" />
+          <Property Name="sysdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Detalle">
+          <Key>
+            <PropertyRef Name="id_detalle" />
+          </Key>
+          <Property Name="id_detalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_enlace_hijo" Type="int" />
+          <Property Name="nombre" Type="nvarchar(max)" />
+          <Property Name="precio" Type="float" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+          <Property Name="visitas" Type="int" />
+          <Property Name="nombre_contacto" Type="nvarchar(max)" />
+          <Property Name="email_contacto" Type="nvarchar(max)" />
+          <Property Name="usuarioWhatsapp" Type="nvarchar(max)" />
+          <Property Name="telefono" Type="nvarchar(max)" />
+          <Property Name="sysdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Validate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_enlace" Type="int" />
+          <Property Name="id_property" Type="bigint" />
+          <Property Name="url" Type="varchar(max)" />
+          <Property Name="publish_date" Type="datetime" />
+          <Property Name="catched_date" Type="datetime" />
+        </EntityType>
+        <Function Name="SP_ENLACE_HIJO_VALIDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_enlace" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ScrappingModelStoreContainer">
+          <EntitySet Name="Caracteristica" EntityType="Self.Caracteristica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caracteristica_Tipo" EntityType="Self.Caracteristica_Tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enlace" EntityType="Self.Enlace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enlace_Hijo" EntityType="Self.Enlace_Hijo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enlace_Hijo_Caracteristica" EntityType="Self.Enlace_Hijo_Caracteristica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enlace_Hijo_Detalle" EntityType="Self.Enlace_Hijo_Detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enlace_Hijo_Validate" EntityType="Self.Enlace_Hijo_Validate" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScrappingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Enlace">
+          <Key>
+            <PropertyRef Name="id_enlace" />
+          </Key>
+          <Property Name="id_enlace" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="web" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sysdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="ScrappingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Enlace" EntityType="Self.Enlace" />
+          <EntitySet Name="Caracteristica_Tipo" EntityType="ScrappingModel.Caracteristica_Tipo" />
+          <FunctionImport Name="SP_ENLACE_HIJO_VALIDATE" ReturnType="Collection(Int32)">
+          <Parameter Name="id_enlace" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Enlace_Hijo_Validate" EntityType="ScrappingModel.Enlace_Hijo_Validate" />
+          <EntitySet Name="Enlace_Hijo_Caracteristica" EntityType="ScrappingModel.Enlace_Hijo_Caracteristica" />
+          <EntitySet Name="Caracteristica" EntityType="ScrappingModel.Caracteristica" />
+          <EntitySet Name="Enlace_Hijo_Detalle" EntityType="ScrappingModel.Enlace_Hijo_Detalle" />
+          <EntitySet Name="Enlace_Hijo" EntityType="ScrappingModel.Enlace_Hijo" />
+        </EntityContainer>
+        <EntityType Name="Caracteristica_Tipo">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Validate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_enlace" Type="Int32" />
+          <Property Name="id_property" Type="Int64" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="catched_date" Type="DateTime" Precision="3" />
+          <Property Name="publish_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Caracteristica">
+          <Key>
+            <PropertyRef Name="id_detalle_caracteristica" />
+          </Key>
+          <Property Name="id_detalle_caracteristica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_enlace_hijo" Type="Int32" />
+          <Property Name="id_caracteristica" Type="Int32" />
+          <Property Name="caracteristica_validate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipo_validate" Type="Int32" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sysdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Caracteristica">
+          <Key>
+            <PropertyRef Name="id_caracteristica" />
+          </Key>
+          <Property Name="id_caracteristica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="caracteristica1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_tipo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo_Detalle">
+          <Key>
+            <PropertyRef Name="id_detalle" />
+          </Key>
+          <Property Name="id_detalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_enlace_hijo" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="precio" Type="Double" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="visitas" Type="Int32" />
+          <Property Name="nombre_contacto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email_contacto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioWhatsapp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sysdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Enlace_Hijo">
+          <Key>
+            <PropertyRef Name="id_enlace_hijo" />
+          </Key>
+          <Property Name="id_enlace_hijo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_enlace" Type="Int32" />
+          <Property Name="id_property" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="publish_date" Type="DateTime" Precision="3" />
+          <Property Name="catched_date" Type="DateTime" Precision="3" />
+          <Property Name="scrapped_date" Type="DateTime" Precision="3" />
+          <Property Name="inactive_date" Type="DateTime" Precision="3" />
+          <Property Name="error_handler" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ScrappingModelStoreContainer" CdmEntityContainer="ScrappingEntities">
+          <EntitySetMapping Name="Enlace">
+            <EntityTypeMapping TypeName="ScrappingModel.Enlace">
+              <MappingFragment StoreEntitySet="Enlace">
+                <ScalarProperty Name="id_enlace" ColumnName="id_enlace" />
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="sysdate" ColumnName="sysdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caracteristica_Tipo">
+            <EntityTypeMapping TypeName="ScrappingModel.Caracteristica_Tipo">
+              <MappingFragment StoreEntitySet="Caracteristica_Tipo">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ENLACE_HIJO_VALIDATE" FunctionName="ScrappingModel.Store.SP_ENLACE_HIJO_VALIDATE" />
+          <EntitySetMapping Name="Enlace_Hijo_Validate">
+            <EntityTypeMapping TypeName="ScrappingModel.Enlace_Hijo_Validate">
+              <MappingFragment StoreEntitySet="Enlace_Hijo_Validate">
+                <ScalarProperty Name="publish_date" ColumnName="publish_date" />
+                <ScalarProperty Name="catched_date" ColumnName="catched_date" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="id_property" ColumnName="id_property" />
+                <ScalarProperty Name="id_enlace" ColumnName="id_enlace" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enlace_Hijo_Caracteristica">
+            <EntityTypeMapping TypeName="ScrappingModel.Enlace_Hijo_Caracteristica">
+              <MappingFragment StoreEntitySet="Enlace_Hijo_Caracteristica">
+                <ScalarProperty Name="sysdate" ColumnName="sysdate" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="tipo_validate" ColumnName="tipo_validate" />
+                <ScalarProperty Name="caracteristica_validate" ColumnName="caracteristica_validate" />
+                <ScalarProperty Name="id_caracteristica" ColumnName="id_caracteristica" />
+                <ScalarProperty Name="id_enlace_hijo" ColumnName="id_enlace_hijo" />
+                <ScalarProperty Name="id_detalle_caracteristica" ColumnName="id_detalle_caracteristica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caracteristica">
+            <EntityTypeMapping TypeName="ScrappingModel.Caracteristica">
+              <MappingFragment StoreEntitySet="Caracteristica">
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="caracteristica1" ColumnName="caracteristica" />
+                <ScalarProperty Name="id_caracteristica" ColumnName="id_caracteristica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enlace_Hijo_Detalle">
+            <EntityTypeMapping TypeName="ScrappingModel.Enlace_Hijo_Detalle">
+              <MappingFragment StoreEntitySet="Enlace_Hijo_Detalle">
+                <ScalarProperty Name="sysdate" ColumnName="sysdate" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="usuarioWhatsapp" ColumnName="usuarioWhatsapp" />
+                <ScalarProperty Name="email_contacto" ColumnName="email_contacto" />
+                <ScalarProperty Name="nombre_contacto" ColumnName="nombre_contacto" />
+                <ScalarProperty Name="visitas" ColumnName="visitas" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_enlace_hijo" ColumnName="id_enlace_hijo" />
+                <ScalarProperty Name="id_detalle" ColumnName="id_detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enlace_Hijo">
+            <EntityTypeMapping TypeName="ScrappingModel.Enlace_Hijo">
+              <MappingFragment StoreEntitySet="Enlace_Hijo">
+                <ScalarProperty Name="error_handler" ColumnName="error_handler" />
+                <ScalarProperty Name="inactive_date" ColumnName="inactive_date" />
+                <ScalarProperty Name="scrapped_date" ColumnName="scrapped_date" />
+                <ScalarProperty Name="catched_date" ColumnName="catched_date" />
+                <ScalarProperty Name="publish_date" ColumnName="publish_date" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="id_property" ColumnName="id_property" />
+                <ScalarProperty Name="id_enlace" ColumnName="id_enlace" />
+                <ScalarProperty Name="id_enlace_hijo" ColumnName="id_enlace_hijo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
