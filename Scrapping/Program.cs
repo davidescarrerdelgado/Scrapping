@@ -16,6 +16,7 @@ namespace Scrapping
            SegundaMano SegundaMano = new SegundaMano();
            //SegundaMano.ScrapearListaPropriedas();
            //Prueba nueva
+            //Prueba 1 - Master
 
            //SegundaMano.ScrapearPropriedadesMasivo(1);
             //SegundaMano.ScrapearPropriedade(9);
